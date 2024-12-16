@@ -1,0 +1,10 @@
+# NodesJS
+package-lock.json
+node_modules/
+
+# Typescript
+tsconfig.json
+dist/
+
+
+
