@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { oggetto } from "../database/prova-import"
+import { oggetto } from "../../database/prova-import"
 
 export default function checkVerbs(req: Request, resp: Response) {
   console.log("checkVerbs");

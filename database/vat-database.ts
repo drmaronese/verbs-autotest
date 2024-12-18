@@ -1,15 +1,16 @@
 import mysql from 'mysql2/promise';
 
+export let pool: mysql.Pool;
+
 class VATDatabase {
 
-  pool!: mysql.Pool;
-
-  connect = (): mysql.Pool => {
-    this.pool = mysql.createPool({
+  connect(): mysql.Pool {
+    pool = mysql.createPool({
       host: 'mysql-aiven-verbs-autotest.l.aivencloud.com',
       port: 24737,
+      database: 'VerbsAutotest',
       user: 'verbsUser',
-      database: 'AVNS_J8afvy6986Uuuj_4H3f',
+      password: 'AVNS_J8afvy6986Uuuj_4H3f',
       waitForConnections: true,
       connectionLimit: 10,
       maxIdle: 10, // max idle connections, the default value is the same as `connectionLimit`
@@ -19,14 +20,14 @@ class VATDatabase {
       keepAliveInitialDelay: 0,
     });
 
-    return this.pool;
-  };
+    return pool;
+  }
 
-  disconnect = async (): Promise<void> => {
-    return await this.pool.end();
+  async disconnect(): Promise<void> {
+    return await pool.end();
   }
 }
 
-const vatDatabase = new VATDatabase();
+let vatDatabase = new VATDatabase();
 
 export default vatDatabase;

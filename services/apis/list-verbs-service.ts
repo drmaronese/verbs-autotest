@@ -1,14 +1,17 @@
 import { Request, Response } from "express";
-import { oggetto } from "../database/prova-import"
+import * as queries from "../../database/queries"
+import { Verb } from "../../models/api-models";
+//import { oggetto } from "../database/prova-import"
 
-export default function listVerbs(req: Request, resp: Response) {
+export default async function listVerbs(req: Request, resp: Response) {
   console.log("listVerbs");
 
-  console.log("Oggetto", oggetto.campo);
+  const verbs: Verb[] | undefined = await queries.allVerbs();
 
   resp.json({
     code: 0,
-    message: "OK"
+    message: "OK",
+    rows: verbs
   });
 }
 
