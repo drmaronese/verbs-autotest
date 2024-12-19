@@ -1,9 +1,9 @@
-import * as DbModels from "../models/db-models";
-import * as ApiModels from "../models/api-models";
+import * as DBModels from "../models/db-models";
+import * as BEModels from "../models/be-models";
 
-export function mapToVerbs(dbVerbs: DbModels.DBVerb[]): ApiModels.Verb[] {
+export function mapToVerbs(dbVerbs: DBModels.DBVerb[]): BEModels.BEVerb[] {
 
-  let verbs: ApiModels.Verb[] = [];
+  let verbs: BEModels.BEVerb[] = [];
 
   dbVerbs.forEach((dbVerb) => {
     verbs.push(mapToVerb(dbVerb));
@@ -12,7 +12,7 @@ export function mapToVerbs(dbVerbs: DbModels.DBVerb[]): ApiModels.Verb[] {
   return verbs;
 }
 
-export function mapToVerb(dbVerb: DbModels.DBVerb): ApiModels.Verb {
+export function mapToVerb(dbVerb: DBModels.DBVerb): BEModels.BEVerb {
 
   return {
     id: dbVerb.id,

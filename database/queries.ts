@@ -1,11 +1,11 @@
-import vatDatabase, { pool } from './vat-database'
-import { DBVerb } from '../models/db-models';
 import { FieldPacket } from 'mysql2';
-import { Verb } from "../models/api-models";
+import { DBVerb } from '../models/db-models';
+import { BEVerb } from "../models/be-models";
 import * as VerbsMapper from "../mappers/verbs-mapper";
+import { pool } from "./database";
 
 
-export async function allVerbs(): Promise<Verb[] | undefined> {
+export async function allVerbs(): Promise<BEVerb[]> {
 
   try {
     const [dbVerbs]: [DBVerb[], FieldPacket[]] = await pool.query<DBVerb[]>('\
@@ -17,5 +17,6 @@ export async function allVerbs(): Promise<Verb[] | undefined> {
 
   } catch (e) {
     console.log('Error reading all verbs from DB', e);
+    throw e;
   }
 }
