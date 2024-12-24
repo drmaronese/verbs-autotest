@@ -5,7 +5,7 @@ import terminus from "@godaddy/terminus"
 import * as db from "./database/database";
 
 const app: Express = express();
-const PORT: number = 3000;
+const PORT: number = 5000;
 
 db.connect();
 
@@ -25,7 +25,7 @@ server.listen(PORT, "0.0.0.0", () => {
 });
 
 function cleanUpApp() {
-  console.log('server is starting cleanup');
+  console.log('Server is starting cleanup');
   return Promise.all([
     db.disconnect
   ]);
