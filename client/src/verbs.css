@@ -1,0 +1,48 @@
+.rowstable {
+  display: inline-block;
+  padding: 20px 10px 20px 10px;
+  border-collapse: collapse;
+}
+
+.rowstable input {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.correctverb {
+  color: green;
+}
+
+.wrongverb {
+  text-decoration: line-through;
+  color: black;
+}
+
+.verbcorrection {
+  color: red;
+}
+
+.margintop {
+  margin-top: 10px;
+}
+
+.spacing {
+  padding-top: 10px;
+}
+
+input {
+  width: 150px;
+  font-size: 18px;
+}
+
+.bglight {
+  background-color: #EEEEEE;
+}
+
+.bgdark {
+  background-color: #DDDDDD;
+}
+
+.marginbottom {
+  margin-bottom: 20px;
+}

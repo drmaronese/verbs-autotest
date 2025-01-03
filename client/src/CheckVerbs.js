@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
+import './verbs.css';
 
-export const CheckVerbs = () => {
+const CheckVerbs = () => {
   // State to hold the rows of text boxes
   const [rows, setRows] = useState([]);
+
+  const location = useLocation();
+
+  const navigate = useNavigate();
 
   // Fetch data from the API on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/backend/api/verbs/quiz/2');
+        console.log("location.state");
+        console.log(location.state);
+        const response = await axios.post('http://localhost:5000/backend/api/verbs/check', location.state);
         console.log("RESPONSE");
         console.log(response);
         // Here we assume the response is an array of data for the text boxes
@@ -24,18 +31,9 @@ export const CheckVerbs = () => {
   }, []); // Empty dependency array means it runs once on mount
 
   // Function to handle submission of the text box contents
-  const handleSubmit = async () => {
+  const gotoQuiz = async () => {
     try {
-      // Prepare the data as an array of arrays from the rows
-      const payload = rows.map(row => [
-        row.textbox1,
-        row.textbox2,
-        row.textbox3,
-      ]);
-
-      // Send POST request with the prepared data
-      await axios.post('YOUR_POST_API_ENDPOINT', payload);
-      alert('Data submitted successfully!');
+      navigate('/quiz');
     } catch (error) {
       console.error('Error submitting data:', error);
     }
@@ -43,65 +41,55 @@ export const CheckVerbs = () => {
 
   // Render the grid of text boxes
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div style={{textAlign: 'center'}}>
       <h1>Verbs Autotest</h1>
-      <table align="center">
+      <table class="rowstable">
         <tbody>
-          {rows.map((row, rowIndex) => (
-            <tr key={rowIndex}>
+            <tr>
+              <th>Base Form</th>
+              <th>Simple Past</th>
+              <th>Past Participle</th>
+            </tr>
+          {rows.map((row, rowIndex) => { 
+            let rowBGColor = 'paddingbottom ';
+            rowBGColor += rowIndex % 2 === 0 ? 'bgdark' : 'bglight';
+            return (
+            <>
+            <tr class={rowBGColor}>
+              <td class="paddingtop verbcorrection">{row.baseFormCorrect}&nbsp;</td>
+              <td class="paddingtop verbcorrection">{row.simplePastCorrect}&nbsp;</td>
+              <td class="paddingtop verbcorrection">{row.pastParticipleCorrect}&nbsp;</td>
+            </tr>
+            <tr key={rowIndex} class={rowBGColor}>
               <td>
-                <input 
+                <input
                   type="text" 
-                  style={{textDecoration: 'line-through'}}
+                  class={row.baseFormPreset ? 'marginbottom' : (row.baseFormCorrect && row.baseForm !== row.baseFormCorrect ? 'wrongverb marginbottom' : 'correctverb marginbottom')}
                   value={row.baseForm} 
-                  onChange={e => {
-                    const newRows = [...rows];
-                    newRows[rowIndex].textbox1 = e.target.value; // Update textbox 1 value
-                    setRows(newRows);
-                  }} 
-                />
-                <input 
-                  type="hidden" 
-                  value={row.id} 
                 />
               </td>
               <td>
-                <input 
+                <input wrongVerb
                   type="text"
-                  style={{textDecoration: 'line-through'}}
+                  class={row.simplePastPreset ? 'marginbottom' : (row.simplePastCorrect && row.simplePast !== row.simplePastCorrect ? 'wrongverb marginbottom' : 'correctverb marginbottom')}
                   value={row.simplePast}
-                  onChange={e => {
-                    const newRows = [...rows];
-                    newRows[rowIndex].textbox2 = e.target.value; // Update textbox 2 value
-                    setRows(newRows);
-                  }}
-                />
-                <input 
-                  type="hidden" 
-                  value={row.id}
                 />
               </td>
               <td>
                 <input 
                   type="text" 
-                  style={{textDecoration: 'line-through'}}
+                  class={row.pastParticiplePreset ? 'marginbottom' : (row.pastParticipleCorrect && row.pastParticiple !== row.pastParticipleCorrect ? 'wrongverb marginbottom' : 'correctverb marginbottom')}
                   value={row.pastParticiple} 
-                  onChange={e => {
-                    const newRows = [...rows];
-                    newRows[rowIndex].textbox3 = e.target.value; // Update textbox 3 value
-                    setRows(newRows);
-                  }} 
-                />
-                <input 
-                  type="hidden" 
-                  value={row.id} 
                 />
               </td>
             </tr>
-          ))}
+            </>
+          )})}
         </tbody>
       </table>
-      <button onClick={handleSubmit}>Submit</button> {/* Submit button */}
+      <div style={{display:'block', marginTop: '20px'}}><button onClick={gotoQuiz}>Go back</button></div>
     </div>
   );
 };
+
+export default CheckVerbs;

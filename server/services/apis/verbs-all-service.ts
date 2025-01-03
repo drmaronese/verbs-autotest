@@ -12,7 +12,6 @@ export default async function allVerbs(req: Request, resp: Response) {
   const respVerbs: ResponseVerbs = {
     code: 0,
     message: "OK",
-    isVerbsCheck: false,
     rows: VerbsMapper.mapToFEVerbs(verbs)
   }
 
