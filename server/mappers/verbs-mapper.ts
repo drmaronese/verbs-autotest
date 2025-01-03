@@ -42,9 +42,9 @@ export function mapToFEVerb(beVerb: BEModels.BEVerb): FEModels.FEVerb {
 
   return {
     id: beVerb.id,
-    baseForm: beVerb.baseForm,
-    simplePast: beVerb.simplePast,
-    pastParticiple: beVerb.pastParticiple
+    baseForm: beVerb.baseForm + "",
+    simplePast: beVerb.simplePast + "",
+    pastParticiple: beVerb.pastParticiple + ""
   }
 }
 

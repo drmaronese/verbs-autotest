@@ -5,7 +5,7 @@ import './verbs.css';
 
 const CheckVerbs = () => {
   // State to hold the rows of text boxes
-  const [rows, setRows] = useState([]);
+  const [verbsState, setVerbsState] = useState({ rows: [] });
 
   const location = useLocation();
 
@@ -19,9 +19,8 @@ const CheckVerbs = () => {
         console.log(location.state);
         const response = await axios.post('http://localhost:5000/backend/api/verbs/check', location.state);
         console.log("RESPONSE");
-        console.log(response);
         // Here we assume the response is an array of data for the text boxes
-        setRows(response.data.rows);
+        setVerbsState(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -50,7 +49,7 @@ const CheckVerbs = () => {
               <th>Simple Past</th>
               <th>Past Participle</th>
             </tr>
-          {rows.map((row, rowIndex) => { 
+          {verbsState.rows.map((row, rowIndex) => { 
             let rowBGColor = 'paddingbottom ';
             rowBGColor += rowIndex % 2 === 0 ? 'bgdark' : 'bglight';
             return (
@@ -87,7 +86,8 @@ const CheckVerbs = () => {
           )})}
         </tbody>
       </table>
-      <div style={{display:'block', marginTop: '20px'}}><button onClick={gotoQuiz}>Go back</button></div>
+      <div style={{display:'block', marginTop: '10px'}}><button onClick={gotoQuiz}>New Test </button></div>
+      <div class="score">SCORE: {verbsState.score} / 10</div>
     </div>
   );
 };

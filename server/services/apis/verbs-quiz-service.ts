@@ -34,15 +34,15 @@ export default async function quizVerbs(req: Request, resp: Response) {
     const ixFormToKeep: number = randomNumberRange(0, 2);
     switch(ixFormToKeep) {
       case 0:
-        feVerb.baseForm = beVerb.baseForm;
+        feVerb.baseForm = beVerb.baseForm + "";
         feVerb.baseFormPreset = true;
         break;
       case 1:
-        feVerb.simplePast = beVerb.simplePast;
+        feVerb.simplePast = beVerb.simplePast + "";
         feVerb.simplePastPreset = true;
         break;
       case 2:
-        feVerb.pastParticiple = beVerb.pastParticiple;
+        feVerb.pastParticiple = beVerb.pastParticiple + "";
         feVerb.pastParticiplePreset = true;
         break;
     }

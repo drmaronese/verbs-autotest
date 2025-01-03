@@ -10,8 +10,7 @@ const Quiz = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:5000/backend/api/verbs/quiz/2');
-        console.log("RESPONSE");
-        console.log(response);
+
         // Here we assume the response is an array of data for the text boxes
         setRows(response.data.rows);
       } catch (error) {
@@ -81,9 +80,11 @@ const Quiz = () => {
                   value={row.baseForm} 
                   class="marginbottom"
                   onChange={e => {
-                    const newRows = [...rows];
-                    newRows[rowIndex].baseForm = e.target.value; // Update textbox 1 value
-                    setRows(newRows);
+                    if (! row.baseFormPreset) {
+                      const newRows = [...rows];
+                      newRows[rowIndex].baseForm = e.target.value; // Update textbox 1 value
+                      setRows(newRows);
+                    }
                   }} 
                 />
               </td>
@@ -93,9 +94,11 @@ const Quiz = () => {
                   value={row.simplePast}
                   class="marginbottom"
                   onChange={e => {
-                    const newRows = [...rows];
-                    newRows[rowIndex].simplePast = e.target.value; // Update textbox 2 value
-                    setRows(newRows);
+                    if (! row.simplePastPreset) {
+                      const newRows = [...rows];
+                      newRows[rowIndex].simplePast = e.target.value; // Update textbox 2 value
+                      setRows(newRows);
+                    }
                   }}
                 />
               </td>
@@ -105,9 +108,11 @@ const Quiz = () => {
                   value={row.pastParticiple} 
                   class="marginbottom"
                   onChange={e => {
-                    const newRows = [...rows];
-                    newRows[rowIndex].pastParticiple = e.target.value; // Update textbox 3 value
-                    setRows(newRows);
+                    if (! row.pastParticiplePreset) {
+                      const newRows = [...rows];
+                      newRows[rowIndex].pastParticiple = e.target.value; // Update textbox 3 value
+                      setRows(newRows);
+                    }
                   }} 
                 />
               </td>
@@ -116,7 +121,7 @@ const Quiz = () => {
           )})}
         </tbody>
       </table>
-      <div style={{display:'block', marginTop: '20px'}}>
+      <div style={{display:'block', marginTop: '10px'}}>
       <button onClick={handleSubmit}>Check</button> {/* Submit button */}
       <button onClick={populate}>Reset</button>
       </div>

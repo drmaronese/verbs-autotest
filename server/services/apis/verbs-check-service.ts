@@ -7,7 +7,7 @@ import * as VerbsMapper from "../../mappers/verbs-mapper";
 export default async function checkVerbs(req: Request, resp: Response) {
   console.log("Check Verbs");
 
-  console.log(req.body);
+  //console.log(req.body);
   const inputVerbs: FECheckVerb[] = req.body.verbs;
 
   const arrayIds: number[] = extractVerbsIds(inputVerbs);
@@ -15,37 +15,47 @@ export default async function checkVerbs(req: Request, resp: Response) {
   const correctVerbs: BEVerb[] = await queries.getVerbsByIds(arrayIds);
   const correctVerbsMap: Map<number, BEVerb> = createCorrectVerbsMap(correctVerbs);
 
+  /*
   console.log("inputVerbs");
   console.log(inputVerbs);
+  */
 
   const outputVerbs: FECheckVerb[] = [];
 
+  let score: number = 0;
   inputVerbs.forEach((v: FECheckVerb) => {
     const correctVerb: BEVerb | undefined = correctVerbsMap.get(v.id);
-    if (! correctVerb) {
+    if (correctVerb === undefined) {
       throw new Error("Verb id not match");
     }
 
     const outputVerb: FECheckVerb = {
       id: v.id,
+      baseForm: v.baseForm,
+      simplePast: v.simplePast,
+      pastParticiple: v.pastParticiple,
+
       baseFormPreset: v.baseFormPreset,
       simplePastPreset: v.simplePastPreset,
       pastParticiplePreset: v.pastParticiplePreset
     };
 
-    outputVerb.baseForm = v.baseForm;
-    if (v.baseForm?.toLowerCase() !== correctVerb.baseForm?.toLowerCase()) {
+    if (! checkVerbForm(v.baseForm, correctVerb.baseForm)) {
       outputVerb.baseFormCorrect = correctVerb.baseForm;
+    } else if (! v.baseFormPreset) {
+      score++;
     }
 
-    outputVerb.simplePast = v.simplePast;
-    if (v.simplePast?.toLowerCase() !== correctVerb.simplePast?.toLowerCase()) {
+    if (! checkVerbForm(v.simplePast, correctVerb.simplePast)) {
       outputVerb.simplePastCorrect = correctVerb.simplePast;
+    } else if (! v.simplePastPreset) {
+      score++;
     }
 
-    outputVerb.pastParticiple = v.pastParticiple;
-    if (v.pastParticiple?.toLowerCase() !== correctVerb.pastParticiple?.toLowerCase()) {
+    if (! checkVerbForm(v.pastParticiple, correctVerb.pastParticiple)) {
       outputVerb.pastParticipleCorrect = correctVerb.pastParticiple;
+    } else if (! v.pastParticiplePreset) {
+      score++;
     }
   
     outputVerbs.push(outputVerb);
@@ -55,19 +65,18 @@ export default async function checkVerbs(req: Request, resp: Response) {
   const respCheckVerbs: ResponseCheckVerbs = {
     code: 0,
     message: "OK",
-    rows: outputVerbs
+    rows: outputVerbs,
+    score: score
   }
 
   resp.json(respCheckVerbs);
 }
 
 function extractVerbsIds(verbs: FECheckVerb[]): number[] {
-
   return verbs.map(v => v.id);
 }
 
 function createCorrectVerbsMap(correctVerbs: BEVerb[]): Map<number, BEVerb> {
-
   const result: Map<number, BEVerb> = new Map<number, BEVerb>();
 
   correctVerbs.forEach(v => {
@@ -75,4 +84,20 @@ function createCorrectVerbsMap(correctVerbs: BEVerb[]): Map<number, BEVerb> {
   })
 
   return result;
+}
+
+function checkVerbForm(inputVerb: string, correctVerb: string | undefined): boolean {
+  if (correctVerb === undefined || inputVerb.toLowerCase() === correctVerb.toLowerCase()) {
+    return true;
+  }
+
+  if (correctVerb.indexOf("/") !== -1) {
+    const verbOptions: string[] = correctVerb.split("/");
+    if (inputVerb.toLowerCase() === verbOptions[0].toLowerCase() ||
+        inputVerb.toLowerCase() === verbOptions[1].toLowerCase()) {
+        return true;  
+    }
+  }
+
+  return false;
 }

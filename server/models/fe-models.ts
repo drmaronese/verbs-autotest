@@ -7,9 +7,9 @@ export interface ResponseResult {
 export interface FEVerb {
   id: number;
 
-  baseForm?: string;
-  simplePast?: string;
-  pastParticiple?: string;
+  baseForm: string;
+  simplePast: string;
+  pastParticiple: string;
 }
 
 export interface FECheckVerb extends FEVerb {
@@ -28,4 +28,5 @@ export interface ResponseVerbs extends ResponseResult {
 
 export interface ResponseCheckVerbs extends ResponseResult {
   rows: FECheckVerb[]
+  score: number;
 }

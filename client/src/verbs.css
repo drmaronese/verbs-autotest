@@ -26,23 +26,33 @@
   margin-top: 10px;
 }
 
-.spacing {
-  padding-top: 10px;
-}
-
 input {
   width: 150px;
   font-size: 18px;
 }
 
 .bglight {
-  background-color: #EEEEEE;
+  background-color: #dff3f8;
 }
 
 .bgdark {
-  background-color: #DDDDDD;
+  background-color: #c0edf8;
 }
 
 .marginbottom {
   margin-bottom: 20px;
+}
+
+button {
+  width: 100px;
+  height: 30px;
+  font-size: 20px;
+}
+
+.score {
+  display: block;
+  margin-top: 30px;
+  font-size: 20px;
+  color: green;
+  font-weight: bold;
 }
