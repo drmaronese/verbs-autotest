@@ -3,10 +3,9 @@ import * as queries from "../../database/queries"
 import { BEVerb } from "../../models/be-models";
 import { FECheckVerb, ResponseVerbs } from "../../models/fe-models";
 import { randomNumberRange } from "../../commons/utils"
-import * as VerbsMapper from "../../mappers/verbs-mapper";
 
 export default async function quizVerbs(req: Request, resp: Response) {
-  console.log("Quiz Verbs");
+  //console.log("Quiz Verbs");
 
   const quizRowsNum = 5;
 
@@ -30,7 +29,6 @@ export default async function quizVerbs(req: Request, resp: Response) {
       pastParticiplePreset: false,
     };
 
-    const verbForms: (string | undefined)[] = [ beVerb.baseForm, beVerb.simplePast, beVerb.pastParticiple ];
     const ixFormToKeep: number = randomNumberRange(0, 2);
     switch(ixFormToKeep) {
       case 0:

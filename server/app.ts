@@ -1,5 +1,5 @@
 import http, { Server } from "http"
-import express, { Express, Request, Response, Router } from "express";
+import express, { Express } from "express";
 import backendRouter from "./routers/backend-apis-router";
 import terminus from "@godaddy/terminus"
 import * as db from "./database/database";
@@ -11,7 +11,7 @@ db.connect();
 
 app.use("/backend/api/", backendRouter);
 
-const server = http.createServer(app);
+const server: Server = http.createServer(app);
 
 const options: terminus.TerminusOptions = {
   signals: [ "SIGTERM", "SIGINT" ],

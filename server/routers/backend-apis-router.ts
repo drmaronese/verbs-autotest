@@ -1,5 +1,5 @@
 
-import express, { Express, Request, Response, Router } from "express";
+import express, { Router } from "express";
 import cors from "cors";
 import allVerbs from '../services/apis/verbs-all-service';
 import quizVerbs from '../services/apis/verbs-quiz-service';

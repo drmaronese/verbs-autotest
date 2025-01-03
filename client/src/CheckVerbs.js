@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './verbs.css';
 
 const CheckVerbs = () => {
@@ -15,11 +15,9 @@ const CheckVerbs = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("location.state");
-        console.log(location.state);
         const response = await axios.post('http://localhost:5000/backend/api/verbs/check', location.state);
-        console.log("RESPONSE");
-        // Here we assume the response is an array of data for the text boxes
+
+        // Here we assume the response is an object of data for the text boxes
         setVerbsState(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -27,9 +25,9 @@ const CheckVerbs = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array means it runs once on mount
+  }, [location.state]); // Empty dependency array means it runs once on mount
 
-  // Function to handle submission of the text box contents
+  // Function to go to the quiz page
   const gotoQuiz = async () => {
     try {
       navigate('/quiz');

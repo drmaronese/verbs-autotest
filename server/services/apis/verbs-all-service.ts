@@ -5,7 +5,7 @@ import { ResponseVerbs } from "../../models/fe-models";
 import * as VerbsMapper from "../../mappers/verbs-mapper";
 
 export default async function allVerbs(req: Request, resp: Response) {
-  console.log("All Verbs");
+  //console.log("All Verbs");
 
   const verbs: BEVerb[] = await queries.allVerbs();
 

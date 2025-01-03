@@ -2,23 +2,16 @@ import { Request, Response } from "express";
 import * as queries from "../../database/queries"
 import { BEVerb } from "../../models/be-models";
 import { FECheckVerb, ResponseCheckVerbs } from '../../models/fe-models';
-import * as VerbsMapper from "../../mappers/verbs-mapper";
 
 export default async function checkVerbs(req: Request, resp: Response) {
-  console.log("Check Verbs");
+  //console.log("Check Verbs");
 
-  //console.log(req.body);
   const inputVerbs: FECheckVerb[] = req.body.verbs;
 
   const arrayIds: number[] = extractVerbsIds(inputVerbs);
 
   const correctVerbs: BEVerb[] = await queries.getVerbsByIds(arrayIds);
   const correctVerbsMap: Map<number, BEVerb> = createCorrectVerbsMap(correctVerbs);
-
-  /*
-  console.log("inputVerbs");
-  console.log(inputVerbs);
-  */
 
   const outputVerbs: FECheckVerb[] = [];
 
