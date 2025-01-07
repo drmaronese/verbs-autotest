@@ -1,21 +1,22 @@
 import mysql from 'mysql2/promise';
+import { getPropString, getPropNumber, getPropBoolean} from '../commons/configuration-properties'
 
 export var pool: mysql.Pool;
 
 export function connect(): mysql.Pool {
   pool = mysql.createPool({
-    host: 'mysql-aiven-verbs-autotest.l.aivencloud.com',
-    port: 24737,
-    database: 'VerbsAutotest',
-    user: 'verbsUser',
-    password: 'AVNS_J8afvy6986Uuuj_4H3f',
-    waitForConnections: true,
-    connectionLimit: 10,
-    maxIdle: 10, // max idle connections, the default value is the same as `connectionLimit`
-    idleTimeout: 60000, // idle connections timeout, in milliseconds, the default value 60000
-    queueLimit: 0,
-    enableKeepAlive: true,
-    keepAliveInitialDelay: 0,
+    host: getPropString('config.database.host'),
+    port: getPropNumber('config.database.port'),
+    database: getPropString('config.database.name'),
+    user: getPropString('config.database.user'),
+    password: getPropString('config.database.password'),
+    waitForConnections: getPropBoolean('config.database.waitForConnections'),
+    connectionLimit: getPropNumber('config.database.connectionLimit'),
+    maxIdle: getPropNumber('config.database.maxIdle'),
+    idleTimeout: getPropNumber('config.database.idleTimeout'),
+    queueLimit: getPropNumber('config.database.queueLimit'),
+    enableKeepAlive: getPropBoolean('config.database.enableKeepAlive'),
+    keepAliveInitialDelay: getPropNumber('config.database.keepAliveInitialDelay')
   });
 
   console.log("Connection pool created");

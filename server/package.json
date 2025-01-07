@@ -24,6 +24,7 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "mysql2": "^3.11.5",
+    "properties-file": "^3.5.11",
     "typescript": "^5.7.2"
   },
   "devDependencies": {
