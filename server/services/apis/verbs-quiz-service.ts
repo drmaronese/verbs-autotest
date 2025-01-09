@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
-import * as queries from "../../database/queries"
+import { getPropNumber } from "../../commons/configuration-properties";
+import { randomNumberRange } from "../../commons/utils";
+import * as queries from "../../database/queries";
 import { BEVerb } from "../../models/be-models";
 import { FECheckVerb, ResponseVerbs } from "../../models/fe-models";
-import { randomNumberRange } from "../../commons/utils"
 
 export default async function quizVerbs(req: Request, resp: Response) {
-  //console.log("Quiz Verbs");
-
-  const quizRowsNum = 5;
+  const quizRowsNum = getPropNumber('service.quiz.rows.number', 5);
 
   const verbs: BEVerb[] = await queries.allVerbs();
   const totalVerbs: number = verbs.length;
@@ -65,4 +64,3 @@ function randomVerb(verbs: BEVerb[], quizVerbsRows: BEVerb[]): BEVerb {
 
   return remainingVerbs[randomNumberRange(0, remainingVerbs.length - 1)];
 }
-

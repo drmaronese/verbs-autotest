@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import * as queries from "../../database/queries"
+import { getPropNumber } from "../../commons/configuration-properties";
+import * as queries from "../../database/queries";
 import { BEVerb } from "../../models/be-models";
 import { FECheckVerb, ResponseCheckVerbs } from '../../models/fe-models';
 
 export default async function checkVerbs(req: Request, resp: Response) {
-  //console.log("Check Verbs");
 
   const inputVerbs: FECheckVerb[] = req.body.verbs;
 
@@ -59,6 +59,7 @@ export default async function checkVerbs(req: Request, resp: Response) {
     code: 0,
     message: "OK",
     rows: outputVerbs,
+    rowsNumber: getPropNumber('service.quiz.rows.number', 5),
     score: score
   }
 

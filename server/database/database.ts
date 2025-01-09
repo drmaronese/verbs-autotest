@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise';
-import { getPropString, getPropNumber, getPropBoolean} from '../commons/configuration-properties'
+import { getPropBoolean, getPropNumber, getPropString } from '../commons/configuration-properties';
 
 export var pool: mysql.Pool;
 

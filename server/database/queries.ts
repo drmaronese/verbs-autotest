@@ -1,7 +1,7 @@
 import { FieldPacket } from 'mysql2';
-import { DBVerb } from '../models/db-models';
-import { BEVerb } from "../models/be-models";
 import * as VerbsMapper from "../mappers/verbs-mapper";
+import { BEVerb } from "../models/be-models";
+import { DBVerb } from '../models/db-models';
 import { pool } from "./database";
 
 
@@ -32,7 +32,7 @@ export async function getVerbsByIds(listIds: number[]): Promise<BEVerb[]> {
     return VerbsMapper.mapToBEVerbs(dbVerbs);
 
   } catch (e) {
-    console.log('Error reading all verbs from DB', e);
+    console.log('Error reading verb by id from DB', e);
     throw e;
   }
 }

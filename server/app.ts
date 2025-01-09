@@ -1,12 +1,12 @@
-import http, { Server } from "http"
+import terminus from "@godaddy/terminus";
 import express, { Express } from "express";
-import backendRouter from "./routers/backend-apis-router";
-import terminus from "@godaddy/terminus"
+import http, { Server } from "http";
+import { getPropNumber } from './commons/configuration-properties';
 import * as db from "./database/database";
-import { getPropNumber } from './commons/configuration-properties'
+import backendRouter from "./routers/backend-apis-router";
 
 const app: Express = express();
-const PORT: number = getPropNumber('config.server.port');
+const PORT: number = getPropNumber('config.server.port', 5000);
 
 db.connect();
 
@@ -31,4 +31,3 @@ function cleanUpApp() {
     db.disconnect
   ]);
 }
-

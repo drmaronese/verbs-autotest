@@ -4,7 +4,10 @@
   "description": "Verbs autotest",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx ts-node app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "encrypt": "npx ts-node encrypt.ts",
+    "decrypt": "npx ts-node decrypt.ts"
   },
   "repository": {
     "type": "git",
@@ -22,6 +25,7 @@
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.2",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mysql2": "^3.11.5",
     "properties-file": "^3.5.11",

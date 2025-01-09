@@ -1,5 +1,5 @@
-import * as DBModels from "../models/db-models";
 import * as BEModels from "../models/be-models";
+import * as DBModels from "../models/db-models";
 import * as FEModels from "../models/fe-models";
 
 // BACKEND

@@ -1,7 +1,7 @@
 
 export interface ResponseResult {
-  code: number,
-  message: string
+  code: number;
+  message: string;
 }
 
 export interface FEVerb {
@@ -23,10 +23,11 @@ export interface FECheckVerb extends FEVerb {
 }
 
 export interface ResponseVerbs extends ResponseResult {
-  rows: FEVerb[]
+  rows: FEVerb[];
 }
 
 export interface ResponseCheckVerbs extends ResponseResult {
-  rows: FECheckVerb[]
+  rows: FECheckVerb[];
+  rowsNumber: number;
   score: number;
 }

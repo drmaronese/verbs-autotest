@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './verbs.css';
 
@@ -85,7 +85,7 @@ const CheckVerbs = () => {
         </tbody>
       </table>
       <div style={{display:'block', marginTop: '10px'}}><button onClick={gotoQuiz}>New Test </button></div>
-      <div class="score">SCORE: {verbsState.score} / 10</div>
+      <div class="score">SCORE: {verbsState.score} / {verbsState.rowsNumber * 2}</div>
     </div>
   );
 };

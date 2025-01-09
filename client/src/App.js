@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Quiz from './Quiz';
+import React from 'react';
+import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import CheckVerbs from './CheckVerbs';
+import Quiz from './Quiz';
 
 const App = () => {
   // Render the grid of text boxes

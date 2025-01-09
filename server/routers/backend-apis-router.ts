@@ -1,9 +1,9 @@
 
-import express, { Router } from "express";
 import cors from "cors";
+import express, { Router } from "express";
 import allVerbs from '../services/apis/verbs-all-service';
-import quizVerbs from '../services/apis/verbs-quiz-service';
 import checkVerbs from '../services/apis/verbs-check-service';
+import quizVerbs from '../services/apis/verbs-quiz-service';
 
 const backendRouter: Router = express.Router();
 
