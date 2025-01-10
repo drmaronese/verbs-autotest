@@ -21,7 +21,8 @@ export function mapToBEVerb(dbVerb: DBModels.DBVerb): BEModels.BEVerb {
     id: dbVerb.id,
     baseForm: dbVerb.baseForm,
     simplePast: dbVerb.simplePast,
-    pastParticiple: dbVerb.pastParticiple
+    pastParticiple: dbVerb.pastParticiple,
+    meaning: dbVerb.meaning
   }
 }
 
@@ -42,9 +43,10 @@ export function mapToFEVerb(beVerb: BEModels.BEVerb): FEModels.FEVerb {
 
   return {
     id: beVerb.id,
-    baseForm: beVerb.baseForm + "",
-    simplePast: beVerb.simplePast + "",
-    pastParticiple: beVerb.pastParticiple + ""
+    baseForm: beVerb.baseForm,
+    simplePast: beVerb.simplePast,
+    pastParticiple: beVerb.pastParticiple,
+    meaning: beVerb.meaning
   }
 }
 

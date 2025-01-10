@@ -9,7 +9,8 @@ export async function allVerbs(): Promise<BEVerb[]> {
 
   try {
     const [dbVerbs]: [DBVerb[], FieldPacket[]] = await pool.query<DBVerb[]>('\
-      SELECT id, base_form AS baseForm, simple_past AS simplePast, past_participle AS pastParticiple \
+      SELECT id, base_form AS baseForm, simple_past AS simplePast, \
+             past_participle AS pastParticiple, meaning \
       FROM verbs \
       ORDER BY id');
 
@@ -25,7 +26,8 @@ export async function getVerbsByIds(listIds: number[]): Promise<BEVerb[]> {
 
   try {
     const [dbVerbs]: [DBVerb[], FieldPacket[]] = await pool.query<DBVerb[]>('\
-      SELECT id, base_form AS baseForm, simple_past AS simplePast, past_participle AS pastParticiple \
+      SELECT id, base_form AS baseForm, simple_past AS simplePast, \
+             past_participle AS pastParticiple, meaning \
       FROM verbs \
       WHERE id IN (?)', [listIds]);
 

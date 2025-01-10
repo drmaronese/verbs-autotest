@@ -5,4 +5,5 @@ export interface DBVerb extends RowDataPacket {
   baseForm: string;
   simplePast: string;
   pastParticiple: string;
+  meaning: string;
 }

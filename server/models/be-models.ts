@@ -1,7 +1,8 @@
 
 export interface BEVerb {
   id: number;
-  baseForm?: string;
-  simplePast?: string;
-  pastParticiple?: string;
+  baseForm: string;
+  simplePast: string;
+  pastParticiple: string;
+  meaning: string
 }

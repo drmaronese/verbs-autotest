@@ -26,6 +26,7 @@ export default async function quizVerbs(req: Request, resp: Response) {
       simplePastPreset: false,
       pastParticiple: "",
       pastParticiplePreset: false,
+      meaning: beVerb.meaning
     };
 
     const ixFormToKeep: number = randomNumberRange(0, 2);

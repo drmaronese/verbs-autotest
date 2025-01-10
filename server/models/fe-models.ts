@@ -10,6 +10,7 @@ export interface FEVerb {
   baseForm: string;
   simplePast: string;
   pastParticiple: string;
+  meaning: string;
 }
 
 export interface FECheckVerb extends FEVerb {

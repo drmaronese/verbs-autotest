@@ -27,6 +27,7 @@ export default async function checkVerbs(req: Request, resp: Response) {
       baseForm: v.baseForm,
       simplePast: v.simplePast,
       pastParticiple: v.pastParticiple,
+      meaning: v.meaning,
 
       baseFormPreset: v.baseFormPreset,
       simplePastPreset: v.simplePastPreset,

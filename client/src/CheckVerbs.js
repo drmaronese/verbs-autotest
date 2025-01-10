@@ -43,7 +43,8 @@ const CheckVerbs = () => {
       <table class="rowstable">
         <tbody>
             <tr>
-              <th>Base Form</th>
+              <th>Meaning</th>
+              <th>Infinite</th>
               <th>Simple Past</th>
               <th>Past Participle</th>
             </tr>
@@ -53,11 +54,13 @@ const CheckVerbs = () => {
             return (
             <>
             <tr class={rowBGColor}>
+              <td class="paddingtop">&nbsp;</td>
               <td class="paddingtop verbcorrection">{row.baseFormCorrect}&nbsp;</td>
               <td class="paddingtop verbcorrection">{row.simplePastCorrect}&nbsp;</td>
               <td class="paddingtop verbcorrection">{row.pastParticipleCorrect}&nbsp;</td>
             </tr>
             <tr key={rowIndex} class={rowBGColor}>
+              <td class="meaning">{row.meaning}</td>
               <td>
                 <input
                   type="text" 

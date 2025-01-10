@@ -37,6 +37,7 @@ const Quiz = () => {
           baseForm: row.baseForm,
           simplePast: row.simplePast,
           pastParticiple: row.pastParticiple,
+          meaning: row.meaning,
 
           baseFormPreset: row.baseFormPreset,
           simplePastPreset: row.simplePastPreset,
@@ -58,7 +59,8 @@ const Quiz = () => {
       <table class="rowstable">
         <tbody>
             <tr>
-              <th>Base Form</th>
+              <th>Meaning</th>
+              <th>Infinite</th>
               <th>Simple Past</th>
               <th>Past Participle</th>
             </tr>
@@ -72,9 +74,11 @@ const Quiz = () => {
               <td class="paddingtop">&nbsp;</td>
               <td class="paddingtop">&nbsp;</td>
               <td class="paddingtop">&nbsp;</td>
+              <td class="paddingtop">&nbsp;</td>
             </tr>
             <tr key={rowIndex} class={rowBGColor}>
-              <td>
+              <td class="meaning">{row.meaning}</td>
+              <td class="marginbottom">
                 <input 
                   type="text" 
                   value={row.baseForm} 
@@ -88,7 +92,7 @@ const Quiz = () => {
                   }} 
                 />
               </td>
-              <td>
+              <td class="marginbottom">
                 <input 
                   type="text"
                   value={row.simplePast}
@@ -102,7 +106,7 @@ const Quiz = () => {
                   }}
                 />
               </td>
-              <td>
+              <td class="marginbottom">
                 <input 
                   type="text" 
                   value={row.pastParticiple} 
