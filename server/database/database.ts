@@ -1,5 +1,6 @@
 import mysql from 'mysql2/promise';
 import { getPropBoolean, getPropNumber, getPropString } from '../commons/configuration-properties';
+import logger from "../commons/logger";
 
 export var pool: mysql.Pool;
 
@@ -19,7 +20,7 @@ export function connect(): mysql.Pool {
     keepAliveInitialDelay: getPropNumber('config.database.keepAliveInitialDelay')
   });
 
-  console.log("Connection pool created");
+  logger.info("Connection pool created");
 
   return pool;
 }

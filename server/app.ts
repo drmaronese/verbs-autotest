@@ -1,16 +1,17 @@
 import terminus from "@godaddy/terminus";
 import express, { Express } from "express";
 import http, { Server } from "http";
-import { getPropNumber } from './commons/configuration-properties';
+import { getPropNumber, getPropString } from './commons/configuration-properties';
 import * as db from "./database/database";
 import backendRouter from "./routers/backend-apis-router";
+import logger from "./commons/logger";
 
 const app: Express = express();
 const PORT: number = getPropNumber('config.server.port', 5000);
 
 db.connect();
 
-app.use("/backend/api/", backendRouter);
+app.use(getPropString('config.backend.api.context.path', '/backend/api/'), backendRouter);
 
 const server: Server = http.createServer(app);
 
@@ -22,11 +23,11 @@ const options: terminus.TerminusOptions = {
 terminus.createTerminus(server, options);
 
 server.listen(PORT, "0.0.0.0", () => {
-  console.log(`Listen on port ${PORT}`);
+  logger.info(`Listen on port ${PORT}`);
 });
 
 function cleanUpApp() {
-  console.log('Server is starting cleanup');
+  logger.info('Server is starting cleanup');
   return Promise.all([
     db.disconnect
   ]);

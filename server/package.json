@@ -27,9 +27,11 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "http-status-codes": "^2.3.0",
     "mysql2": "^3.11.5",
     "properties-file": "^3.5.11",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "ts-node": "^10.9.2"
