@@ -9,7 +9,7 @@ const Quiz = () => {
   const populate = () => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/backend/api/verbs/quiz/2');
+        const response = await axios.get('http://localhost:5000/backend/api/verbs/quiz');
 
         // Here we assume the response is an array of data for the text boxes
         setRows(response.data.rows);

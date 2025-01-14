@@ -1,9 +1,7 @@
-
 import { NextFunction, Request, Response } from "express";
 import logger from "../commons/logger";
 import { ApplicationError } from "../exceptions/global-exceptions";
 import { ResponseResult } from "../models/fe-models";
-import http from 'http';
 import { StatusCodes } from "http-status-codes";
 import GlobalErrorInfo from '../exceptions/global-error-info';
 
@@ -29,4 +27,6 @@ export default async function (err: Error, req: Request, resp: Response, next: N
   }
 
   resp.status(status).json(respError);
+
+  next();
 }

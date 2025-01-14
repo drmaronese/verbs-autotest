@@ -16,17 +16,6 @@ export default async function checkVerbs(req: Request, resp: Response) {
 
   const outputVerbs: FECheckVerb[] = [];
 
-  inputVerbs.push({id: -1,
-      baseForm: 'a',
-      simplePast: 'b',
-      pastParticiple: 'c',
-      meaning: 'd',
-      baseFormPreset: true,
-      simplePastPreset: true,
-      pastParticiplePreset: true
-  });
-
-
   let score: number = 0;
   inputVerbs.forEach((v: FECheckVerb) => {
     const correctVerb: BEVerb | undefined = correctVerbsMap.get(v.id);

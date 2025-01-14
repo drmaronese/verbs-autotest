@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { getPropNumber } from "../../commons/configuration-properties";
 import { randomNumberRange } from "../../commons/utils";
 import * as queries from "../../database/queries";
@@ -6,7 +6,7 @@ import { BEVerb } from "../../models/be-models";
 import { FECheckVerb, ResponseVerbs } from "../../models/fe-models";
 import { InternalServerError } from "../../exceptions/global-exceptions";
 
-export default async function quizVerbs(req: Request, resp: Response) {
+export default async function quizVerbs(req: Request, resp: Response, next: NextFunction) {
   const quizRowsNum = getPropNumber('service.quiz.rows.number', 5);
 
   const verbs: BEVerb[] = await queries.allVerbs();
