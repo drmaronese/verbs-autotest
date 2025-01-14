@@ -9,7 +9,7 @@ export default async function allVerbs(req: Request, resp: Response) {
   const verbs: BEVerb[] = await queries.allVerbs();
 
   const respVerbs: ResponseVerbs = {
-    code: 0,
+    code: "0",
     message: "OK",
     rows: VerbsMapper.mapToFEVerbs(verbs)
   }

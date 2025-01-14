@@ -13,12 +13,10 @@ export function errorInfoOf(code: string, description: string) {
 }
 
 export default class GlobalErrorInfo {
-  public GENERIC_ERROR = errorInfoOf("000", "Generic error");
-  public INTERNAL_SERVER_ERROR = errorInfoOf("001", "Internal server error");
-  public DATABASE_ERROR = errorInfoOf("002", "Database error");
+  public static GENERIC_ERROR = errorInfoOf("VAT-000", "Generic error");
+  public static INTERNAL_SERVER_ERROR = errorInfoOf("VAT-001", "Internal server error");
+  public static DATABASE_ERROR = errorInfoOf("VAT-002", "Database error");
 }
-
-
 
 
 

@@ -3,6 +3,7 @@ import { getPropNumber } from "../../commons/configuration-properties";
 import * as queries from "../../database/queries";
 import { BEVerb } from "../../models/be-models";
 import { FECheckVerb, ResponseCheckVerbs } from '../../models/fe-models';
+import { InternalServerError } from "../../exceptions/global-exceptions";
 
 export default async function checkVerbs(req: Request, resp: Response) {
 
@@ -15,11 +16,22 @@ export default async function checkVerbs(req: Request, resp: Response) {
 
   const outputVerbs: FECheckVerb[] = [];
 
+  inputVerbs.push({id: -1,
+      baseForm: 'a',
+      simplePast: 'b',
+      pastParticiple: 'c',
+      meaning: 'd',
+      baseFormPreset: true,
+      simplePastPreset: true,
+      pastParticiplePreset: true
+  });
+
+
   let score: number = 0;
   inputVerbs.forEach((v: FECheckVerb) => {
     const correctVerb: BEVerb | undefined = correctVerbsMap.get(v.id);
     if (correctVerb === undefined) {
-      throw new Error("Verb id not match");
+      throw new InternalServerError("Verb id not match");
     }
 
     const outputVerb: FECheckVerb = {
@@ -57,7 +69,7 @@ export default async function checkVerbs(req: Request, resp: Response) {
 
 
   const respCheckVerbs: ResponseCheckVerbs = {
-    code: 0,
+    code: "0",
     message: "OK",
     rows: outputVerbs,
     rowsNumber: getPropNumber('service.quiz.rows.number', 5),

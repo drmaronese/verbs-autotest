@@ -4,6 +4,7 @@ import { randomNumberRange } from "../../commons/utils";
 import * as queries from "../../database/queries";
 import { BEVerb } from "../../models/be-models";
 import { FECheckVerb, ResponseVerbs } from "../../models/fe-models";
+import { InternalServerError } from "../../exceptions/global-exceptions";
 
 export default async function quizVerbs(req: Request, resp: Response) {
   const quizRowsNum = getPropNumber('service.quiz.rows.number', 5);
@@ -12,7 +13,7 @@ export default async function quizVerbs(req: Request, resp: Response) {
   const totalVerbs: number = verbs.length;
 
   if (quizRowsNum > totalVerbs) {
-    throw RangeError("Quiz rows number greater than total verbs");
+    throw new InternalServerError("Quiz rows number greater than total verbs");
   }
 
   let quizVerbsRows: FECheckVerb[] = [];
@@ -49,7 +50,7 @@ export default async function quizVerbs(req: Request, resp: Response) {
   }
 
   const respVerbs: ResponseVerbs = {
-    code: 0,
+    code: "0",
     message: "OK",
     rows: quizVerbsRows
   }

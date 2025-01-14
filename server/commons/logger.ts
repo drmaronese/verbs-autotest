@@ -31,6 +31,7 @@ const formatter = winston.format.combine(
     const { timestamp, level, message, ...meta } = info;
   
     return `${timestamp} [${level}]: ${message} ${meta.errno ? '('+meta.errno+')' : ''} ${meta.stack ? "\n"+meta.stack : ''}`;
+    //return `${timestamp} [${level}]: ${meta.stack ? "\n"+meta.stack : message + (meta.errno ? ' ('+meta.errno+')' : '')}`;
   })
 );
  

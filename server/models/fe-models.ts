@@ -1,6 +1,6 @@
 
 export interface ResponseResult {
-  code: number;
+  code: string;
   message: string;
 }
 
