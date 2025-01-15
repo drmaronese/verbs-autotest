@@ -1,12 +1,11 @@
-import { NextFunction, Request, Response } from "express";
 import { getPropNumber } from "../../commons/configuration-properties";
 import { randomNumberRange } from "../../commons/utils";
 import * as queries from "../../database/queries";
-import { BEVerb } from "../../models/be-models";
-import { FECheckVerb, ResponseVerbs } from "../../models/fe-models";
 import { InternalServerError } from "../../exceptions/global-exceptions";
+import { mapToBECheckVerbsResponse } from "../../mappers/be-verbs-mapper";
+import { BECheckVerb, BEResponseCheckVerbs, BEVerb } from "../../models/be-models";
 
-export default async function quizVerbs(req: Request, resp: Response, next: NextFunction) {
+export default async function quizVerbs(): Promise<BEResponseCheckVerbs>  {
   const quizRowsNum = getPropNumber('service.quiz.rows.number', 5);
 
   const verbs: BEVerb[] = await queries.allVerbs();
@@ -16,10 +15,10 @@ export default async function quizVerbs(req: Request, resp: Response, next: Next
     throw new InternalServerError("Quiz rows number greater than total verbs");
   }
 
-  let quizVerbsRows: FECheckVerb[] = [];
+  let quizVerbsRows: BECheckVerb[] = [];
   for(let i=0; i<quizRowsNum; i++) {
     let beVerb: BEVerb = randomVerb(verbs, quizVerbsRows);
-    let feVerb: FECheckVerb = {
+    let beCheckVerb: BECheckVerb = {
       id: beVerb.id,
       baseForm: "",
       baseFormPreset: false,
@@ -33,29 +32,23 @@ export default async function quizVerbs(req: Request, resp: Response, next: Next
     const ixFormToKeep: number = randomNumberRange(0, 2);
     switch(ixFormToKeep) {
       case 0:
-        feVerb.baseForm = beVerb.baseForm + "";
-        feVerb.baseFormPreset = true;
+        beCheckVerb.baseForm = beVerb.baseForm + "";
+        beCheckVerb.baseFormPreset = true;
         break;
       case 1:
-        feVerb.simplePast = beVerb.simplePast + "";
-        feVerb.simplePastPreset = true;
+        beCheckVerb.simplePast = beVerb.simplePast + "";
+        beCheckVerb.simplePastPreset = true;
         break;
       case 2:
-        feVerb.pastParticiple = beVerb.pastParticiple + "";
-        feVerb.pastParticiplePreset = true;
+        beCheckVerb.pastParticiple = beVerb.pastParticiple + "";
+        beCheckVerb.pastParticiplePreset = true;
         break;
     }
     
-    quizVerbsRows.push(feVerb);
+    quizVerbsRows.push(beCheckVerb);
   }
 
-  const respVerbs: ResponseVerbs = {
-    code: "0",
-    message: "OK",
-    rows: quizVerbsRows
-  }
-
-  resp.json(respVerbs);
+  return mapToBECheckVerbsResponse(quizVerbsRows);
 }
 
 function randomVerb(verbs: BEVerb[], quizVerbsRows: BEVerb[]): BEVerb {

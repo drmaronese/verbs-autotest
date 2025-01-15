@@ -1,19 +1,11 @@
-import { Request, Response } from "express";
 import * as queries from "../../database/queries";
-import * as VerbsMapper from "../../mappers/verbs-mapper";
-import { BEVerb } from "../../models/be-models";
-import { ResponseVerbs } from "../../models/fe-models";
+import { mapToBEAllVerbsResponse } from "../../mappers/be-verbs-mapper";
+import { BEResponseAllVerbs, BEVerb } from "../../models/be-models";
 
-export default async function allVerbs(req: Request, resp: Response) {
+export default async function allVerbs(): Promise<BEResponseAllVerbs> {
 
   const verbs: BEVerb[] = await queries.allVerbs();
 
-  const respVerbs: ResponseVerbs = {
-    code: "0",
-    message: "OK",
-    rows: VerbsMapper.mapToFEVerbs(verbs)
-  }
-
-  resp.json(respVerbs);
+  return mapToBEAllVerbsResponse(verbs);
 }
 

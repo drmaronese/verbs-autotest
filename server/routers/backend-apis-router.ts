@@ -1,11 +1,13 @@
 
 import cors from "cors";
-import express, { Request, Response, NextFunction, Router, RequestHandler } from "express";
+import express, { NextFunction, Request, RequestHandler, Response, Router } from "express";
+import * as VerbsMapper from "../mappers/fe-verbs-mapper";
+import debugLogsHandler from '../middlewares/debug-logs-handler';
+import errorHandler from '../middlewares/error-handler';
+import { BEResponseAllVerbs, BEResponseCheckVerbs } from "../models/be-models";
 import allVerbs from '../services/apis/verbs-all-service';
 import checkVerbs from '../services/apis/verbs-check-service';
 import quizVerbs from '../services/apis/verbs-quiz-service';
-import errorHandler from '../middlewares/error-handler';
-import debugLogsHandler from '../middlewares/debug-logs-handler';
 
 const backendRouter: Router = express.Router();
 
@@ -17,17 +19,17 @@ backendRouter.use(cors());
 
 backendRouter.use(debugLogsHandler.handler);
 
-backendRouter.get('/verbs/all', apiRouterCatchErrors(allVerbs));
-backendRouter.get('/verbs/quiz', apiRouterCatchErrors(quizVerbs));
-backendRouter.post('/verbs/check', apiRouterCatchErrors(checkVerbs));
+backendRouter.get('/verbs/all', apiHandlerCatchErrors(allVerbsHandler));
+backendRouter.get('/verbs/quiz', apiHandlerCatchErrors(quizVerbsHandler));
+backendRouter.post('/verbs/check', apiHandlerCatchErrors(checkVerbsHandler));
 
 backendRouter.use(errorHandler);
 
-function apiRouterCatchErrors(apiService: RequestHandler): RequestHandler {
+function apiHandlerCatchErrors(apiHandler: RequestHandler): RequestHandler {
 
   return async function (req: Request, resp: Response, next: NextFunction): Promise<void> {
     try {
-      await apiService(req, resp, next);
+      await apiHandler(req, resp, next);
 
       next();
 
@@ -35,4 +37,22 @@ function apiRouterCatchErrors(apiService: RequestHandler): RequestHandler {
       next(error);
     }
   }
+}
+
+async function allVerbsHandler(req: Request, resp: Response) {
+  const beAllVerbsResponse: BEResponseAllVerbs = await allVerbs();
+
+  resp.json(VerbsMapper.mapToFEResponseVerbs(beAllVerbsResponse));
+}
+
+async function quizVerbsHandler(req: Request, resp: Response) {
+  const beCheckVerbsResponse: BEResponseCheckVerbs = await quizVerbs();
+
+  resp.json(VerbsMapper.mapToFEResponseCheckVerbs(beCheckVerbsResponse));
+}
+
+async function checkVerbsHandler(req: Request, resp: Response) {
+  const beCheckVerbsResponse: BEResponseCheckVerbs = await checkVerbs(req.body.verbs);
+
+  resp.json(VerbsMapper.mapToFEResponseCheckVerbs(beCheckVerbsResponse));
 }

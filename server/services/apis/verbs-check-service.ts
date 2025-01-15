@@ -1,39 +1,26 @@
-import { Request, Response } from "express";
 import { getPropNumber } from "../../commons/configuration-properties";
 import * as queries from "../../database/queries";
-import { BEVerb } from "../../models/be-models";
-import { FECheckVerb, ResponseCheckVerbs } from '../../models/fe-models';
 import { InternalServerError } from "../../exceptions/global-exceptions";
+import { mapToBECheckVerbsResponse } from "../../mappers/be-verbs-mapper";
+import { BECheckVerb, BEResponseCheckVerbs, BEVerb } from "../../models/be-models";
 
-export default async function checkVerbs(req: Request, resp: Response) {
-
-  const inputVerbs: FECheckVerb[] = req.body.verbs;
+export default async function checkVerbs(inputVerbs: BECheckVerb[]): Promise<BEResponseCheckVerbs> {
 
   const arrayIds: number[] = extractVerbsIds(inputVerbs);
 
   const correctVerbs: BEVerb[] = await queries.getVerbsByIds(arrayIds);
   const correctVerbsMap: Map<number, BEVerb> = createCorrectVerbsMap(correctVerbs);
 
-  const outputVerbs: FECheckVerb[] = [];
+  const outputVerbs: BECheckVerb[] = [];
 
   let score: number = 0;
-  inputVerbs.forEach((v: FECheckVerb) => {
+  inputVerbs.forEach((v: BECheckVerb) => {
     const correctVerb: BEVerb | undefined = correctVerbsMap.get(v.id);
     if (correctVerb === undefined) {
       throw new InternalServerError("Verb id not match");
     }
 
-    const outputVerb: FECheckVerb = {
-      id: v.id,
-      baseForm: v.baseForm,
-      simplePast: v.simplePast,
-      pastParticiple: v.pastParticiple,
-      meaning: v.meaning,
-
-      baseFormPreset: v.baseFormPreset,
-      simplePastPreset: v.simplePastPreset,
-      pastParticiplePreset: v.pastParticiplePreset
-    };
+    const outputVerb: BECheckVerb = { ...v };
 
     if (! checkVerbForm(v.baseForm, correctVerb.baseForm)) {
       outputVerb.baseFormCorrect = correctVerb.baseForm;
@@ -56,19 +43,10 @@ export default async function checkVerbs(req: Request, resp: Response) {
     outputVerbs.push(outputVerb);
   });
 
-
-  const respCheckVerbs: ResponseCheckVerbs = {
-    code: "0",
-    message: "OK",
-    rows: outputVerbs,
-    rowsNumber: getPropNumber('service.quiz.rows.number', 5),
-    score: score
-  }
-
-  resp.json(respCheckVerbs);
+  return mapToBECheckVerbsResponse(outputVerbs, getPropNumber('service.quiz.rows.number', 5), score);
 }
 
-function extractVerbsIds(verbs: FECheckVerb[]): number[] {
+function extractVerbsIds(verbs: BECheckVerb[]): number[] {
   return verbs.map(v => v.id);
 }
 

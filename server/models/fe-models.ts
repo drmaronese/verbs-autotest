@@ -1,4 +1,3 @@
-
 export interface ResponseResult {
   code: string;
   message: string;
@@ -23,12 +22,12 @@ export interface FECheckVerb extends FEVerb {
   pastParticiplePreset: boolean;
 }
 
-export interface ResponseVerbs extends ResponseResult {
+export interface FEResponseVerbs extends ResponseResult {
   rows: FEVerb[];
 }
 
-export interface ResponseCheckVerbs extends ResponseResult {
+export interface FEResponseCheckVerbs extends ResponseResult {
   rows: FECheckVerb[];
-  rowsNumber: number;
-  score: number;
+  rowsNumber?: number;
+  score?: number;
 }

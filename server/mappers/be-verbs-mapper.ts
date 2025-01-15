@@ -1,9 +1,23 @@
 import * as BEModels from "../models/be-models";
 import * as DBModels from "../models/db-models";
-import * as FEModels from "../models/fe-models";
+import { BEResponseAllVerbs } from '../models/be-models';
 
 // BACKEND
 //
+export function mapToBEAllVerbsResponse(beVerbs: BEModels.BEVerb[]): BEModels.BEResponseAllVerbs {
+  return {
+    rows: beVerbs
+  };
+}
+
+export function mapToBECheckVerbsResponse(beCheckVerbs: BEModels.BECheckVerb[], rowsNumber?: number, score?: number): BEModels.BEResponseCheckVerbs {
+  return {
+    rows: beCheckVerbs,
+    rowsNumber: rowsNumber,
+    score: score
+  };
+}
+
 export function mapToBEVerbs(dbVerbs: DBModels.DBVerb[]): BEModels.BEVerb[] {
 
   let verbs: BEModels.BEVerb[] = [];
@@ -23,30 +37,6 @@ export function mapToBEVerb(dbVerb: DBModels.DBVerb): BEModels.BEVerb {
     simplePast: dbVerb.simplePast,
     pastParticiple: dbVerb.pastParticiple,
     meaning: dbVerb.meaning
-  }
-}
-
-// FRONTEND
-//
-export function mapToFEVerbs(dbVerbs: BEModels.BEVerb[]): FEModels.FEVerb[] {
-
-  let verbs: FEModels.FEVerb[] = [];
-
-  dbVerbs.forEach((feVerb) => {
-    verbs.push(mapToFEVerb(feVerb));
-  });
-
-  return verbs;
-}
-
-export function mapToFEVerb(beVerb: BEModels.BEVerb): FEModels.FEVerb {
-
-  return {
-    id: beVerb.id,
-    baseForm: beVerb.baseForm,
-    simplePast: beVerb.simplePast,
-    pastParticiple: beVerb.pastParticiple,
-    meaning: beVerb.meaning
-  }
+  } as BEModels.BEVerb;
 }
 

@@ -1,5 +1,5 @@
-import GlobalErrorInfo, { ErrorInfo } from "./global-error-info";
 import { StatusCodes } from "http-status-codes";
+import GlobalErrorInfo, { ErrorInfo } from "./global-error-info";
 
 export class ApplicationError extends Error {
   public readonly error: ErrorInfo;
