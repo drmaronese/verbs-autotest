@@ -1,6 +1,6 @@
 import * as BEModels from "../models/be-models";
+import { BEResponseAllVerbs, BEResponseCheckVerbs } from '../models/be-models';
 import * as FEModels from "../models/fe-models";
-import { BEResponseAllVerbs, BEResponseCheckVerbs, BECheckVerb } from '../models/be-models';
 
 // FRONTEND
 //

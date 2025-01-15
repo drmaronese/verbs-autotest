@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import logger from "../commons/logger";
 
-class DebugLogsHandler {
+class ApiDebugLogsHandler {
 
   public responseBody: any;
   private originalJSON: any;
@@ -49,4 +49,4 @@ ${JSON.stringify(this.responseBody)}`);
   }
 }
 
-export default new DebugLogsHandler();
+export default new ApiDebugLogsHandler();
