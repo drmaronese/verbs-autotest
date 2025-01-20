@@ -36,6 +36,5 @@ export function mapToBEVerb(dbVerb: DBModels.DBVerb): BEModels.BEVerb {
     simplePast: dbVerb.simplePast,
     pastParticiple: dbVerb.pastParticiple,
     meaning: dbVerb.meaning
-  } as BEModels.BEVerb;
+  };
 }
-

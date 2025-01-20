@@ -1,13 +1,13 @@
-import quizVerbs from "../../services/apis/verbs-quiz-service"; // Adjust the import path as necessary
-import { allVerbs } from "../../database/queries";
-import { InternalServerError } from "../../exceptions/global-exceptions";
-import { getPropNumber } from "../../commons/configuration-properties";
-import * as utilsModule from "../../commons/utils";
+import quizVerbs from "../../../../services/apis/verbs-quiz-service"; // Adjust the import path as necessary
+import { allVerbs } from "../../../../database/queries";
+import { InternalServerError } from "../../../../exceptions/global-exceptions";
+import { getPropNumber } from "../../../../commons/configuration-properties";
+import * as utilsModule from "../../../../commons/utils";
 
-jest.mock("../../database/queries", () => ({
+jest.mock("../../../../database/queries", () => ({
   allVerbs: jest.fn(),
 }));
-jest.mock("../../commons/configuration-properties", () => ({
+jest.mock("../../../../commons/configuration-properties", () => ({
   getPropNumber: jest.fn(),
 }));
 //jest.mock("../../commons/utils");
@@ -62,7 +62,7 @@ describe("quizVerbs", () => {
     (getPropNumber as jest.Mock).mockReturnValue(3);
     (allVerbs as jest.Mock).mockResolvedValue(mockVerbs);
     
-    const randomNumberRangeMock = jest.requireMock("../../commons/utils").randomNumberRange;
+    const randomNumberRangeMock = jest.requireMock("../../../../commons/utils").randomNumberRange;
     randomNumberRangeMock.mockImplementation((min: number, max: number) => Math.floor((min + max) / 2)); // returns middle index
 
     const response = await quizVerbs();
