@@ -4,7 +4,7 @@ Github repository of a little web application for learning of english irregular 
 
 This web application view a grid of english irregular verbs in which the user insert the forms of verbs missed. By pressing the "Check" button all inserted verbs are checked and corrected if wrong.
 
-Currently the verbs are archived in a MySQL database on the cloud and a dockerized MySQL isn't present in this project.
+Currently the verbs are archived in a MySQL database on the cloud and in this project isn't present a dockerized MySQL.
 
 ## Techonologies
 
