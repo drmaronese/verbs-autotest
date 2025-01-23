@@ -26,7 +26,7 @@ export function connect(): mysql.Pool {
 }
 
 export async function disconnect(): Promise<void> {
-  console.log("Connection pool closed");
+  logger.info("Connection pool closed");
 
   return await pool.end();
 }

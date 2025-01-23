@@ -9,6 +9,9 @@ const secretKey = process.env.VERBS_AUTOTEST_SECURE_KEY;
 
 const CIPHER: string = "{cipher}";
 
+      console.log("Internal getProperties:");
+      console.log(getProperties(""));
+
 const configProperties = getProperties(
   readFileSync(path.resolve(__dirname, '..', 'config', 'application.properties'))
     .toString());
