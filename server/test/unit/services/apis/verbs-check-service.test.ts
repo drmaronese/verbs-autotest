@@ -1,4 +1,4 @@
-import checkVerbs from "../../../../services/apis/verbs-check-service"; // Adjust the import path as necessary
+import checkVerbs from "../../../../services/apis/verbs-check-service";
 import * as queries from "../../../../database/queries";
 import { InternalServerError } from "../../../../exceptions/global-exceptions";
 import { mapToBECheckVerbsResponse } from "../../../../mappers/be-verbs-mapper";

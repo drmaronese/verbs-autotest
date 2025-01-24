@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise';
-import { connect, disconnect, pool } from '../../../database/database'; // Adjust the import according to your file structure
+import { connect, disconnect, pool } from '../../../database/database';
 import { getPropBoolean, getPropNumber, getPropString } from '../../../commons/configuration-properties';
 import logger from "../../../commons/logger";
 

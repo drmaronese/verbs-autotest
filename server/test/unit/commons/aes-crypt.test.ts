@@ -1,4 +1,4 @@
-import { encryptText, decryptText } from '../../../commons/aes-crypt'; // Adjust the import according to your file structure
+import { encryptText, decryptText } from '../../../commons/aes-crypt';
 import crypto from 'crypto';
 
 jest.mock('crypto');

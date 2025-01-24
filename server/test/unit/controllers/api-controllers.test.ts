@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { allVerbsController, quizVerbsController, checkVerbsController } from "../../../controllers/api-controllers"; // adjust the import according to your file structure
+import { allVerbsController, quizVerbsController, checkVerbsController } from "../../../controllers/api-controllers";
 import * as VerbsMapper from "../../../mappers/fe-verbs-mapper";
 import allVerbs from '../../../services/apis/verbs-all-service';
 import checkVerbs from '../../../services/apis/verbs-check-service';

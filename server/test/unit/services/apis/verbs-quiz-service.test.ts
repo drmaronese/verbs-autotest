@@ -1,4 +1,4 @@
-import quizVerbs from "../../../../services/apis/verbs-quiz-service"; // Adjust the import path as necessary
+import quizVerbs from "../../../../services/apis/verbs-quiz-service";
 import { allVerbs } from "../../../../database/queries";
 import { InternalServerError } from "../../../../exceptions/global-exceptions";
 import { getPropNumber } from "../../../../commons/configuration-properties";

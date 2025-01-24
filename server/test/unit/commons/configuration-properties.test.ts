@@ -1,9 +1,7 @@
-import dotenv from 'dotenv';
 import { readFileSync } from 'node:fs';
-import path from 'path';
 import { getProperties } from 'properties-file';
-import { decryptText } from '../../../commons/aes-crypt'; // Adjust the import according to your file structure
-import configProperties, { getPropString, getPropNumber, getPropBoolean } from '../../../commons/configuration-properties'; // Adjust the import according to your file structure
+import { decryptText } from '../../../commons/aes-crypt';
+import configProperties, { getPropString, getPropNumber, getPropBoolean } from '../../../commons/configuration-properties';
 
 jest.mock('dotenv');
 jest.mock('node:fs', () => ({
@@ -20,8 +18,11 @@ jest.mock('properties-file', () => ({
       'some.boolean': '{cipher}true',
     })
 }));
-jest.mock('../../../commons/aes-crypt');
-
+jest.mock('../../../commons/aes-crypt', () => ({
+  decryptText: jest.fn().mockImplementation((value) => {
+        return value.replace('{cipher}', ''); // simple mock decryption for testing
+  })
+}));
 describe('Configuration Properties', () => {
   beforeEach(() => {
     const mockConfig = {
@@ -30,7 +31,7 @@ describe('Configuration Properties', () => {
       'some.boolean': '{cipher}true',
     };
 
-    jest.clearAllMocks();
+    //jest.clearAllMocks();
     process.env.VERBS_AUTOTEST_SECURE_KEY = 'my_secret_key'; // Set the environment variable for testing
     (readFileSync as jest.Mock).mockReturnValue(JSON.stringify(mockConfig));
     (getProperties as jest.Mock).mockReturnValue(mockConfig);
@@ -42,15 +43,10 @@ describe('Configuration Properties', () => {
         return value.replace('{cipher}', ''); // simple mock decryption for testing
       });
 
-      //const properties = jest.requireMock('../../../commons/configuration-properties'); // Make sure this path is correct
-      expect(configProperties['some.string']).toBe('encryptedString');
-      expect(configProperties['some.number']).toBe('123');
-      expect(configProperties['some.boolean']).toBe('true');
-/*       import('../../../commons/configuration-properties').then((properties) => {
+      const properties = require('../../../commons/configuration-properties');
       expect(properties.default['some.string']).toBe('encryptedString');
       expect(properties.default['some.number']).toBe('123');
       expect(properties.default['some.boolean']).toBe('true');
-      }); // Make sure this path is correct */
     });
   });
 

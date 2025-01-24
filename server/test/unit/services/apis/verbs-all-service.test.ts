@@ -1,4 +1,4 @@
-import allVerbs from '../../../../services/apis/verbs-all-service'; // adjust the import as necessary
+import allVerbs from '../../../../services/apis/verbs-all-service';
 import * as queries from "../../../../database/queries";
 import { mapToBEAllVerbsResponse } from "../../../../mappers/be-verbs-mapper";
 import { BEResponseAllVerbs, BEVerb } from "../../../../models/be-models";
@@ -12,7 +12,7 @@ describe('allVerbs', () => {
       { id: 1, baseForm: 'go', simplePast: 'went', pastParticiple: 'gone', meaning: 'andare' },
       { id: 2, baseForm: 'see', simplePast: 'saw', pastParticiple: 'seen', meaning: 'vedere' },
     ];
-    const mockedResponse: BEResponseAllVerbs = { rows: mockedVerbs }; // adjust structure based on actual response
+    const mockedResponse: BEResponseAllVerbs = { rows: mockedVerbs };
     (queries.allVerbs as jest.Mock).mockResolvedValue(mockedVerbs);
     (mapToBEAllVerbsResponse as jest.Mock).mockReturnValue(mockedResponse);
     
@@ -25,7 +25,7 @@ describe('allVerbs', () => {
 
   it('should handle an empty array of verbs', async () => {
     const mockedVerbs: BEVerb[] = [];
-    const mockedResponse: BEResponseAllVerbs = { rows: mockedVerbs }; // adjust structure based on actual response
+    const mockedResponse: BEResponseAllVerbs = { rows: mockedVerbs };
     (queries.allVerbs as jest.Mock).mockResolvedValue(mockedVerbs);
     (mapToBEAllVerbsResponse as jest.Mock).mockReturnValue(mockedResponse);
     
