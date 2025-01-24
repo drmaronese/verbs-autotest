@@ -1,0 +1,13 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_verbs_autotest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password # Change this to your desired root password
+      MYSQL_DATABASE: VerbsAutotest
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./irregular-verbs.csv:/var/lib/mysql-files/irregular-verbs.csv

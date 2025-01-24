@@ -4,7 +4,7 @@ Github repository of a little web application for learning of english irregular 
 
 This web application view a grid of english irregular verbs in which the user insert the forms of verbs missed. By pressing the "Check" button all inserted verbs are checked and corrected if wrong.
 
-Currently the verbs are archived in a MySQL database on the cloud and in this project isn't present a dockerized MySQL.
+The irregular verbs are imported at the application start in a dockerized MySQL database.
 
 ## Techonologies
 
@@ -13,6 +13,7 @@ Currently the verbs are archived in a MySQL database on the cloud and in this pr
 - NodeJS
 - Typescript
 - Express
+- Docker
 - MySQL
 
 ### Client
@@ -59,3 +60,7 @@ It is possibile import this collection in postman that have 3 requests to direct
 # Server properties file
 
 [verbs-autotest/server/config/application.properties](https://github.com/drmaronese/verbs-autotest/blob/main/server/config/application.properties)
+
+# CSV file containing the irregular verbs loaded on mysql container startup
+
+verbs-autotest/server/docker/irregular-verbs.csv](https://github.com/drmaronese/verbs-autotest/blob/main/server/docker/irregular-verbs.csv)
