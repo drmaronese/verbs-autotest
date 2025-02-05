@@ -1,10 +1,18 @@
 # Verbs-autotest
 
-Github repository of a little web application for learning of english irregular verbs.
+Github repository of a little web application for self learning of english irregular verbs.
 
-This web application view a grid of english irregular verbs in which the user insert the forms of verbs missed. By pressing the "Check" button all inserted verbs are checked and corrected if wrong.
+This web application views a page with a grid of english irregular verbs in which the user insert the forms of verbs missed. By pressing the "Check" button all inserted verbs are checked and corrected if wrong, and a score is showed.
 
-The irregular verbs are imported at the application start in a dockerized MySQL database.
+# Application description
+
+The application is composed of a client part (front-end) and a server part (back-end).<br/>
+The front-end is accessible through a browser and makes use of two REST APIs of the back-end.<br/>
+Either front-end and back-end are made with Node.js but without the use of docker images.
+
+The back-end read irregular verbs from a MySQL database table.<br/>
+For application local execution in this project is present a dockerized MySQL database.<br/>
+When launching the docker container, the database and table are automatically created and the irregular verbs are imported in the table from the CSV file [verbs-autotest/server/docker/irregular-verbs.csv](https://github.com/drmaronese/verbs-autotest/blob/main/server/docker/irregular-verbs.csv).
 
 ## Techonologies
 
@@ -22,13 +30,15 @@ The irregular verbs are imported at the application start in a dockerized MySQL 
 - Javascript
 - React
 
-# Build and run
+# Build and run locally
 
 For local execution run both backend server and frontend client:
 
 ```
 # SERVER
 cd verbs-autotest/server
+npm run db-local-docker
+npn run build
 npm start
 ```
 
@@ -61,6 +71,6 @@ It is possibile import this collection in postman that have 3 requests to direct
 
 [verbs-autotest/server/config/application.properties](https://github.com/drmaronese/verbs-autotest/blob/main/server/config/application.properties)
 
-# CSV file containing the irregular verbs loaded on mysql container startup
+# CSV file containing the irregular verbs imported on MySQL container startup
 
-verbs-autotest/server/docker/irregular-verbs.csv](https://github.com/drmaronese/verbs-autotest/blob/main/server/docker/irregular-verbs.csv)
+[verbs-autotest/server/docker/irregular-verbs.csv](https://github.com/drmaronese/verbs-autotest/blob/main/server/docker/irregular-verbs.csv)

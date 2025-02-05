@@ -4,8 +4,11 @@
   "description": "Verbs autotest",
   "main": "app.js",
   "scripts": {
-    "start": "./start.sh",
+    "build": "rm -rf dist && tsc && copyfiles config/application.properties dist/",
+    "start": "node dist/app.js",
     "test": "jest",
+    "db-local-docker": "docker compose -f docker/compose.yaml up",
+    "local-start": "npm run build && npm run start",
     "encrypt": "npx ts-node encrypt.ts",
     "decrypt": "npx ts-node decrypt.ts"
   },
@@ -37,6 +40,7 @@
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.14",
     "@types/supertest": "^6.0.2",
+    "copyfiles": "^2.4.1",
     "jest": "^29.7.0",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",

@@ -12,7 +12,7 @@ export function encryptText(data = '', encryptionKey = '') {
 }
 
 export function decryptText(encryptedData = '', encryptionKey = '') {
-  const [initializationVectorAsHex, encryptedDataAsHex] = encryptedData?.split(':');
+  const [initializationVectorAsHex, encryptedDataAsHex] = encryptedData.split(':');
   const initializationVector = Buffer.from(initializationVectorAsHex, 'base64');
   const hashedEncryptionKey = crypto.createHash('sha256').update(encryptionKey).digest('base64').substring(0, 32);
   const decipher = crypto.createDecipheriv('aes256', hashedEncryptionKey, initializationVector);

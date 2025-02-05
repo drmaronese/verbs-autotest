@@ -127,7 +127,7 @@ const Quiz = () => {
       </table>
       <div style={{display:'block', marginTop: '10px'}}>
       <button onClick={handleSubmit}>Check</button> {/* Submit button */}
-      <button onClick={populate}>Reset</button>
+      <button onClick={populate}>New Test</button>
       </div>
     </div>
   );
