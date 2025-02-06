@@ -36,7 +36,7 @@ For local execution run both backend server and frontend client:
 
 ```
 # SERVER
-cd verbs-autotest/server
+cd server
 npm run db-local-docker
 npn run build
 npm start
@@ -44,7 +44,7 @@ npm start
 
 ```
 # CLIENT
-cd verbs-autotest/client
+cd client
 npm start
 ```
 
